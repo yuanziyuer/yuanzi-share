@@ -27,7 +27,7 @@ class StrategyComponent extends Component {
         };
     }
     componentWillMount (){
-        fetch('http://101.251.204.42:3010/strategies/'+ this.props.params.id  + '?version=v2')
+        fetch('http://www.iyuanzi.net/strategies/'+ this.props.params.id  + '?version=v2')
             .then((response) => response.json())
             .then((data) => {
                 this.setState({strategy: data});
