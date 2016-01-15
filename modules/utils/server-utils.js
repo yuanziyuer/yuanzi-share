@@ -36,6 +36,8 @@ export function createPage(html) {
     <head>
       <meta charset="utf-8"/>
       <title>My Universal App</title>
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css" />
+      <link href='http://yuanzi-assets.oss-cn-beijing.aliyuncs.com/share/style/mobile.css', rel='stylesheet' />
     </head>
     <body>
       <div id="app">${html}</div>

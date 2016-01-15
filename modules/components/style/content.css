@@ -1,0 +1,193 @@
+body{
+  margin: 0;
+  background: #f0f0f0;
+  position: relative;
+  height: 100vh;
+  text-align: center;
+  font-family: "Heiti SC";
+}
+
+.root {
+
+}
+
+.storyAudio {
+  controls: control;
+}
+#text {
+  text-align: left;
+}
+.strategyTitle {
+  padding-top: 30px;
+  margin-left: 40px;
+  margin-right: 40px;
+  text-align: center;
+  color: #333;
+  font-size: 18px;
+}
+.authorWrap {
+  margin: 20px;
+  font-size: 12px;
+  color: #999;
+}
+.author {
+  color: #ff989e;
+  font-size: 12px;
+}
+.usedCount {
+  margin: 20px;
+  text-align: center;
+  color: #999;
+  font-size: 12px;
+}
+.avatarImg {
+  z-index: 6;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+}
+.photoWorks {
+  text-align: left;
+  margin: 10px;
+}
+.showPhotoBtn {
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border: solid 1px #FF7272;
+  border-radius: 4px;
+  padding: 5px;
+  width: 100px;
+  color: #ff7272;
+  background: inherit;
+}
+.photoList {
+  height: 150px;
+}
+.photoItem {
+  float: left;
+  height: 100%;
+  width: 126px;
+}
+.photoItemWrap {
+  margin: 4px;
+  background: #fafafa;
+  float: left;
+  height: 240px;
+  width: 148px;
+}
+.photoItemWrap .avatarWrap {
+  height: 30px;
+  margin-top: -15px;
+  text-align: center;
+}
+.photoItemWrap .avatarWrap .avatarImg {
+  z-index: 6;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.photoItemWrap .work {
+  margin: 4px;
+  width: 140px;
+  height: 140px;
+}
+.photoItemWrap .nickname {
+  margin-top: 10px;
+  margin-bottom: 25px;
+  overflow: hidden;
+  color: #666;
+  font-size: 12px;
+  width: 100%;
+  text-align: center;
+}
+
+.photoItemWrap .like {
+  text-align: center;
+}
+
+.photoItemWrap .like .likeIcon {
+  width: 18px;
+}
+
+.photoItemWrap .like .likeCount {
+  padding-left: 3px;
+  line-height: 18px;
+}
+
+.uploadPhotoBtn {
+  margin: 20px 10px 10px 10px;
+  width: 250px;
+  padding: 5px;
+  background: #ff7272;
+  color: white;
+}
+.commentsWrap {
+  margin: 30px 10px 30px 10px;
+}
+.sectionTitle {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  text-align: left;
+  color: #999;
+  font-size: 15px;
+}
+
+.sectionTitle .sectionName {
+  color: #333333;
+}
+
+.commentItemWrap {
+  text-align: left;
+  color: #999;
+  margin: 10px;
+  font-size: 12px;
+}
+.commentItemWrap .avatarWrap {
+  position: absolute;
+}
+.nicknameWrap {
+  margin-left: 60px;
+  margin-bottom: 10px;
+}
+.nicknameWrap .nickname {
+  color: #999;
+  font-size: 12px;
+
+}
+.time {
+  margin-left: 60px;
+  font-size: 11px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.commentText {
+  margin-top: 15px;
+  margin-left: 60px;
+  margin-bottom: 15px;
+
+  color: #666;
+
+}
+.showCommentBtn {
+  margin-top: 20px;
+  padding: 5px;
+  color: #ff7272;
+  background: inherit;
+}
+.text {
+  padding: 35px 10px 35px 10px;
+  line-height: 1.8;
+  color: #333;
+  text-align: left;
+  font-size: 15px;
+}
+.text p {
+  width: inherit;
+  position: relative;
+}
+
+.text img {
+  width: 100%;
+}
