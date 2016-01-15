@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import fetch from 'isomorphic-fetch';
+import { Link } from 'react-router';
 import moment from 'moment'
 if (process.env.BROWSER) {
 	require("./style/mobile.css");
@@ -105,14 +106,15 @@ class StrategiesCollections extends  Component {
 class StrategyItem extends Component {
     render () {
         return (
-            <li className="strategyItem">
-
+            <Link to= {"/strategies/" + this.props.strategyId + "/view"} >
+                <li className="strategyItem">
                 <div className="strategyItemWrap"><img src={this.props.cover} alt="" className="strategyCover"/>
-                    <div className="title">{this.props.title}</div>
-                    <div className="authorWrap"><span>by </span><span className="author">{this.props.owner.nickname}</span></div>
-                    <div className="separator"></div>
-                    <div className="score">{ this.props.tryCount+"人参与 / " + this.props.score+"分" } </div>
-                </div></li>
+                        <div className="title">{this.props.title}</div>
+                        <div className="authorWrap"><span>by </span><span className="author">{this.props.owner.nickname}</span></div>
+                        <div className="separator"></div>
+                        <div className="score">{ this.props.tryCount+"人参与 / " + this.props.score+"分" } </div>
+                    </div></li>
+            </Link>
         );
     }
 }
