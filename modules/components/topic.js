@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment'
 if (process.env.BROWSER) {
-	require("./style/content.css");
+	require("./style/mobile.css");
 	require("./style/topic.css");
 }
 
@@ -106,6 +106,7 @@ class StrategyItem extends Component {
     render () {
         return (
             <li className="strategyItem">
+
                 <div className="strategyItemWrap"><img src={this.props.cover} alt="" className="strategyCover"/>
                     <div className="title">{this.props.title}</div>
                     <div className="authorWrap"><span>by </span><span className="author">{this.props.owner.nickname}</span></div>

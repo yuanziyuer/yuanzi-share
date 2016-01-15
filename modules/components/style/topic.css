@@ -1,0 +1,101 @@
+body {
+    margin: 0;
+    background: #f0f0f0;
+    position: relative;
+    height: 100vh;
+    text-align: center;
+    font-family: "Heiti SC";
+}
+
+.coverImg {
+    width: 100%
+}
+
+.topicTitle {
+    padding-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    text-align: center;
+    color: #333;
+    font-size: 18px;
+}
+.authorWrap {
+    margin: 20px;
+    font-size: 12px;
+    color: #999;
+}
+.author {
+    color: #ff989e;
+    font-size: 12px;
+}
+.usedCount {
+    margin: 20px;
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+}
+
+.description {
+    padding: 35px 10px 35px 10px;
+    line-height: 1.8;
+    color: #333;
+    text-align: left;
+    font-size: 15px;
+}
+
+.sectionTitle {
+    margin-top: 16px;
+    margin-left: 10px;
+    margin-bottom: 16px;
+    text-align: left;
+    color: #999;
+    font-size: 15px;
+}
+
+.sectionTitle .sectionName {
+    color: #333333;
+}
+
+.strategyiesCollection .strategyItem {
+    width: 50vw;
+    float: left;
+    background: #fcf8f5;
+}
+
+.strategyItem .strategyItemWrap {
+    margin: 4px;
+    text-align: left;
+    font-size: 11px;
+    color: #999;
+    background: #ffffff;
+}
+
+.strategyItemWrap .separator {
+    margin: 10px;
+    height: 1px;
+    background: #cbcbcb;
+}
+
+.strategyItemWrap .titleWrap {
+    height: 26px;
+    margin: 10px;
+}
+
+.strategyItemWrap .title {
+    color: #333;
+    font-size: 13px;
+    width: 100%;
+    height: 100%;
+}
+
+.strategyItemWrap .authorWrap {
+    margin: 0px 10px 10px;
+}
+
+.strategyItemWrap .score {
+    margin: 10px;
+}
+
+.strategyItemWrap .strategyCover {
+    width: 100%;
+}

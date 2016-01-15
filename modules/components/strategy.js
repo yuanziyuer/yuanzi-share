@@ -7,6 +7,7 @@ import moment from 'moment'
 if (process.env.BROWSER) {
 	require("./style/content.css");
 	require("./style/strategy.css");
+    require('./style/mobile.css');
 }
 
 class StrategyComponent extends Component {
@@ -22,6 +23,7 @@ class StrategyComponent extends Component {
             soundStory: "",
             score: 0,
             tryCount :0,
+            collectCount:0,
             description:""
         }
         };
@@ -71,7 +73,7 @@ class Strategies extends Component {
             <div className="authorWrap"><span>来自: </span><span className="author">{this.props.strategy.owner.nickname}</span></div>
 
             {
-                this.props.strategy.tryCount ?   <div className="usedCount">{this.props.strategy.tryCount +'人参与' + " 综合评分"+this.props.strategy.score +'分  ' + this.props.strategy.score +'人收藏'}</div> : <div className="usedCount"/>
+                this.props.strategy.tryCount ?   <div className="usedCount">{this.props.strategy.tryCount +'人参与' + " 综合评分"+this.props.strategy.score +'分  ' + this.props.strategy.collectCount +'人收藏'}</div> : <div className="usedCount"/>
             }
             <div className="audioSection">
                 {
