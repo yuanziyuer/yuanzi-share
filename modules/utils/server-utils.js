@@ -37,6 +37,7 @@ export function createPage(html) {
       <meta charset="utf-8"/>
       <title>元子育儿</title>
       <meta property="og:type" content="text/html" />
+      <meta name="viewport", content="initial-scale=1,maximum-scale=1,user-scalable=no">
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css" />
       <link href='http://yuanzi-assets.oss-cn-beijing.aliyuncs.com/share/style/mobile.css', rel='stylesheet' />
     </head>
