@@ -35,7 +35,8 @@ export function createPage(html) {
   <html>
     <head>
       <meta charset="utf-8"/>
-      <title>My Universal App</title>
+      <title>元子育儿</title>
+      <meta property="og:type" content="text/html" />
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css" />
       <link href='http://yuanzi-assets.oss-cn-beijing.aliyuncs.com/share/style/mobile.css', rel='stylesheet' />
     </head>
