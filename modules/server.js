@@ -5,39 +5,28 @@ import { match, RoutingContext } from 'react-router'
 import fs from 'fs'
 import { createPage, write, writeError, writeNotFound, redirect } from './utils/server-utils'
 import routes from './routes/RootRoute'
+const webpack = require('webpack');
+const config = require('../webpack.config');
 var express = require('express');
 
 var app = express();
-const PORT = process.env.PORT || 5000;
-
+const PORT = process.env.PORT || 3000;
+const compiler = webpack(config);
 function renderApp(props, res) {
   const markup = renderToString(<RoutingContext {...props}/>);
   const html = createPage(markup);
   write(html, 'text/html', res);
 }
 
-(function() {
+app.use(require('webpack-dev-middleware')(compiler, {
+	publicPath: config.output.publicPath,
+	stats: {
+		colors: true
+	}
+}));
 
-	// Step 1: Create & configure a webpack compiler
-	var webpack = require('webpack');
-	var webpackConfig = require('../webpack.config');
-	var compiler = webpack(webpackConfig);
-
-	// Step 2: Attach the dev middleware to the compiler & the server
-	app.use(require("webpack-dev-middleware")(compiler, {
-		noInfo: true, publicPath: webpackConfig.output.publicPath
-	}));
-
-	// Step 3: Attach the hot middleware to the compiler & the server
-	app.use(require("webpack-hot-middleware")(compiler, {
-		log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
-	}));
-})();
-
+app.use(require('webpack-hot-middleware')(compiler));
 // Do anything you like with the rest of your express application.
-
-
-
 
 app.get("*", function(req, res) {
 	if (req.url === '/favicon.ico') {
@@ -47,7 +36,12 @@ app.get("*", function(req, res) {
 	// serve JavaScript assets
 	else if (/__build__/.test(req.url)) {
 		fs.readFile(`.${req.url}`, (err, data) => {
-			write(data, 'text/javascript', res)
+			var ext = req.url.split('.').pop()
+			var contentTypeMap = {
+				'js': 'text/javascript',
+				'css': 'text/css'
+			}
+			write(data, contentTypeMap[ext] || '', res)
 		})
 	}
 

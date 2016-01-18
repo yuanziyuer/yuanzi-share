@@ -1,24 +1,13 @@
 var fs = require('fs')
 var path = require('path')
 var webpack = require('webpack')
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-module.exports = {
-
-	devtool: 'source-map',
-
-	entry: './modules/client.js',
-
-	output: {
-		path: __dirname + '/__build__',
-		filename: '[name].js',
-		chunkFilename: '[id].chunk.js',
-		publicPath: '/__build__/'
-	},
-
+var baseConfig = {
 	module: {
 		loaders: [
 			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
-			{ test: /\.css$/, loader: "style-loader!css-loader" },
+			{ test: /\.css$/,loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
 			{
 				test: /\.png$/,
 				loader: "url-loader",
@@ -30,16 +19,48 @@ module.exports = {
 	plugins: [
 		new webpack.optimize.OccurenceOrderPlugin(),
 		new webpack.optimize.DedupePlugin(),
+		new webpack.HotModuleReplacementPlugin(),
 		new webpack.optimize.UglifyJsPlugin({
 			compressor: { warnings: false },
 		}),
-
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NoErrorsPlugin(),
+		new ExtractTextPlugin("style.css", {
+			allChunks: true
+		}),
 		new webpack.DefinePlugin({
-			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-			'process.env.BROWSER': JSON.stringify(process.env.NODE_ENV || 'development'),
+			'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
 		})
 	]
-
 }
+
+function getNodeModules() {
+	var nodeModules = {}
+	fs.readdirSync('node_modules')
+		.filter(function(x) { return ['.bin'].indexOf(x) === -1 })
+		.forEach(function(mod) { nodeModules[mod] = 'commonjs ' + mod })
+	return nodeModules
+}
+
+module.exports = [
+	Object.assign({}, baseConfig, {
+		entry: ['./modules/client.js','webpack-hot-middleware/client'],
+		name: 'client',
+		output: {
+			path: __dirname + '/__build__',
+			filename: 'client.js',
+			chunkFilename: '[id].client.chunk.js',
+			publicPath: '/__build__/'
+		}
+	}),
+	Object.assign({}, baseConfig, {
+		entry: ['./modules/server.js','webpack-hot-middleware/client'],
+		target:'node',
+		name: 'server',
+		output: {
+			path: __dirname + '/__build__',
+			filename: 'server.js',
+			publicPath: '/__build__/',
+
+		},
+		externals: getNodeModules()
+	})
+]

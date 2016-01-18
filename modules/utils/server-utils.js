@@ -40,10 +40,11 @@ export function createPage(html) {
       <meta name="viewport", content="initial-scale=1,maximum-scale=1,user-scalable=no">
       <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.3.15/slick.css" />
       <link href='http://yuanzi-assets.oss-cn-beijing.aliyuncs.com/share/style/mobile.css', rel='stylesheet' />
+      <link rel="stylesheet" type="text/css" href='/__build__/style.css' />
     </head>
     <body>
       <div id="app">${html}</div>
-      <script src="/__build__/main.js"></script>
+      <script src="/__build__/client.js"></script>
     </body>
   </html>
   `
