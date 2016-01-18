@@ -4,6 +4,7 @@ import Slider from 'react-slick'
 import moment from 'moment'
 moment().format();
 moment.locale('zh-cn');
+import './style/content.css'
 class StrategyComponent extends Component {
 	constructor(props) {
 		super(props);

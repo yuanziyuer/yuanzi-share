@@ -11,7 +11,7 @@ var express = require('express');
 
 var app = express();
 const PORT = process.env.PORT || 3000;
-const compiler = webpack(config);
+const compiler = webpack(config[1]);
 function renderApp(props, res) {
   const markup = renderToString(<RoutingContext {...props}/>);
   const html = createPage(markup);
@@ -19,7 +19,7 @@ function renderApp(props, res) {
 }
 
 app.use(require('webpack-dev-middleware')(compiler, {
-	publicPath: config.output.publicPath,
+	publicPath: '__build__',
 	stats: {
 		colors: true
 	}
@@ -30,7 +30,7 @@ app.use(require('webpack-hot-middleware')(compiler));
 
 app.get("*", function(req, res) {
 	if (req.url === '/favicon.ico') {
-		write('haha', 'text/plain', res)
+		write('haha', 'text/plain', res);
 	}
 
 	// serve JavaScript assets
@@ -60,12 +60,9 @@ app.get("*", function(req, res) {
 	}
 });
 
-if (require.main === module) {
-	var server = http.createServer(app);
-	server.listen(process.env.PORT || 3000, function() {
-		console.log("Listening on %j", server.address());
-	});
-}
-
-console.log(`listening on port ${PORT}`);
+var server = http.createServer(app);
+server.listen(process.env.PORT || 3000, function() {
+  console.log("Listening on %j", server.address());
+});
+  
 

@@ -7,7 +7,7 @@ var baseConfig = {
 	module: {
 		loaders: [
 			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
-			{ test: /\.css$/,loader: ExtractTextPlugin.extract("style-loader", "css-loader")},
+			{ test: /\.css$/,loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')},
 			{
 				test: /\.png$/,
 				loader: "url-loader",
@@ -42,7 +42,7 @@ function getNodeModules() {
 
 module.exports = [
 	Object.assign({}, baseConfig, {
-		entry: ['./modules/client.js','webpack-hot-middleware/client'],
+		entry: ['./modules/client.js'],
 		name: 'client',
 		output: {
 			path: __dirname + '/__build__',
@@ -52,7 +52,7 @@ module.exports = [
 		}
 	}),
 	Object.assign({}, baseConfig, {
-		entry: ['./modules/server.js','webpack-hot-middleware/client'],
+		entry: ['./modules/server.js'],
 		target:'node',
 		name: 'server',
 		output: {

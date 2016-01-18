@@ -5,9 +5,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment'
-require("./style/content.css");
-
-
 class Topic extends Component {
 	constructor(props) {
 		super(props);
