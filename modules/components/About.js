@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default class About extends React.Component {
   render() {
@@ -12,8 +12,8 @@ export default class About extends React.Component {
           React warning 11  about reusing markup.
         </p>
       </div>
-    )
-  }
-}
+    );
+  };
+};
 
 

@@ -4,7 +4,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import fetch from 'isomorphic-fetch';
-import moment from 'moment'
+import moment from 'moment';
 class Topic extends Component {
 	constructor(props) {
 		super(props);
@@ -12,21 +12,20 @@ class Topic extends Component {
 			topic: {
 				strategies:[],
 				owner:{
-					nickname :""
+					nickname :''
 				},
-				cover: "",
+				cover: '',
 				score: 0,
 				tryCount :0,
-				description:""
-			}};
+				description:''
+			} };
 	}
 	componentWillMount (){
 		//var id = document.URL.split("/").slice(-1)[0];
 		fetch('http://www.iyuanzi.net/topics/'+ this.props.params.id + '?version=v2')
 			.then((response) => response.json())
 			.then((data) => {
-				this.setState({topic: data});
-				console.log(this.state)
+				this.setState({ topic: data });
 				var title = data.title || '元子育儿';
 				var image = data.cover || 'http://share.iyuanzi.net/favicon.ico';
 				var description = title;
@@ -100,17 +99,17 @@ class StrategiesCollections extends  Component {
 class StrategyItem extends Component {
 	render () {
 		return (
-			<Link to={"/strategies/"+this.props.strategyId+"/view"} >
+			<Link to={'/strategies/'+this.props.strategyId+'/view'} >
 				<li className="strategyItem">
 					<div className="strategyItemWrap"><img src={this.props.cover} alt="" className="strategyCover"/>
 						<div className="title">{this.props.title}</div>
 						<div className="authorWrap"><span>by </span><span className="author">{this.props.owner.nickname}</span></div>
 						<div className="separator"></div>
-						<div className="score">{ this.props.tryCount+"人参与 / " + this.props.score+"分" } </div>
+						<div className="score">{ this.props.tryCount+'人参与 / ' + this.props.score+'分' } </div>
 					</div></li>
 			</Link>
 		);
-	}
+	};
 }
 
 export default Topic;

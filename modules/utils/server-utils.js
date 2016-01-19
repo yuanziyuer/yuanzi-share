@@ -1,20 +1,20 @@
-import zlib from 'zlib'
+import zlib from 'zlib';
 
 export function writeError(msg, res) {
-  res.writeHead(500, { 'Content-Type': 'text/html' })
-  res.write('ERROR!')
-  res.end()
+  res.writeHead(500, { 'Content-Type': 'text/html' });
+  res.write('ERROR!');
+  res.end();
 }
 
 export function redirect(location, res) {
-  res.writeHead(303, { 'Location': location })
-  res.end()
+  res.writeHead(303, { 'Location': location });
+  res.end();
 }
 
 export function writeNotFound(res) {
-  res.writeHead(404, { 'Content-Type': 'text/html' })
-  res.write('Not Found')
-  res.end()
+  res.writeHead(404, { 'Content-Type': 'text/html' });
+  res.write('Not Found');
+  res.end();
 }
 
 export function write(string, type, res) {
@@ -23,9 +23,9 @@ export function write(string, type, res) {
       'Content-Length': result.length,
       'Content-Type': type,
       'Content-Encoding': 'gzip'
-    })
-    res.write(result)
-    res.end()
+    });
+    res.write(result);
+    res.end();
   });
 }
 
@@ -47,6 +47,6 @@ export function createPage(html) {
       <script src="/__build__/client.js"></script>
     </body>
   </html>
-  `
+  `;
 }
 
