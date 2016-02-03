@@ -8,7 +8,7 @@ export default {
   component: App,
   getChildRoutes(location, cb) {
     require.ensure([], (require) => {
-      cb(null, [ require('./StrategyRoute'),require('./TopicRoute'),require('./AboutRoute') ]);
+      cb(null, [ require('./StrategyRoute'),require('./TopicRoute') ]);
     });
   },
   indexRoute: {

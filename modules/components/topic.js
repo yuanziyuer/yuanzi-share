@@ -20,31 +20,34 @@ class Topic extends Component {
 				description:''
 			} };
 	}
+  componentDidMount() {
+    fetch('http://www.iyuanzi.net/topics/'+ this.props.params.id + '?version=v2')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ topic: data });
+        var title = data.title || '元子育儿';
+        var image = data.cover || 'http://share.iyuanzi.net/favicon.ico';
+        var description = title;
+        const oMeta = document.createElement('meta');
+        oMeta.setAttribute('property', 'og:title');
+        oMeta.setAttribute('content', title);
+        document.getElementsByTagName('head')[0].appendChild(oMeta);
+        const oMetaimage = document.createElement('meta');
+        oMetaimage.setAttribute('property', 'og:image');
+        oMetaimage.setAttribute('content', image);
+        document.getElementsByTagName('head')[0].appendChild(oMetaimage);
+        const oMetadesc = document.createElement('meta');
+        oMetadesc.setAttribute('property', 'og:description');
+        oMetadesc.setAttribute('content', description);
+        document.getElementsByTagName('head')[0].appendChild(oMetadesc);
+      })
+      .catch((ex) => {
+        console.log('fetch failed', ex);
+      });
+  }
 	componentWillMount (){
 		//var id = document.URL.split("/").slice(-1)[0];
-		fetch('http://www.iyuanzi.net/topics/'+ this.props.params.id + '?version=v2')
-			.then((response) => response.json())
-			.then((data) => {
-				this.setState({ topic: data });
-				var title = data.title || '元子育儿';
-				var image = data.cover || 'http://share.iyuanzi.net/favicon.ico';
-				var description = title;
-				const oMeta = document.createElement('meta');
-				oMeta.setAttribute('property', 'og:title');
-				oMeta.setAttribute('content', title);
-				document.getElementsByTagName('head')[0].appendChild(oMeta);
-				const oMetaimage = document.createElement('meta');
-				oMetaimage.setAttribute('property', 'og:image');
-				oMetaimage.setAttribute('content', image);
-				document.getElementsByTagName('head')[0].appendChild(oMetaimage);
-				const oMetadesc = document.createElement('meta');
-				oMetadesc.setAttribute('property', 'og:description');
-				oMetadesc.setAttribute('content', description);
-				document.getElementsByTagName('head')[0].appendChild(oMetadesc);
-			})
-			.catch((ex) => {
-				console.log('fetch failed', ex);
-			});
+
 	}
 
 	render() {

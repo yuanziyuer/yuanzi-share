@@ -23,31 +23,34 @@ class StrategyComponent extends Component {
 		}
 		};
 	}
+  componentDidMount() {
+    fetch('http://www.iyuanzi.net/strategies/'+ this.props.params.id  + '?version=v2')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({ strategy: data });
+        var title = data.title || '元子育儿';
+        var image = data.cover || 'http://share.iyuanzi.net/favicon.ico';
+        var description = data.subTitle || title;
+        const oMeta = document.createElement('meta');
+        oMeta.setAttribute('property', 'og:title');
+        oMeta.setAttribute('content', title);
+        document.getElementsByTagName('head')[0].appendChild(oMeta);
+        const oMetaImage = document.createElement('meta');
+        oMetaImage.setAttribute('property', 'og:image');
+        oMetaImage.setAttribute('content', image);
+        document.getElementsByTagName('head')[0].appendChild(oMetaImage);
+        const oMetaDesc = document.createElement('meta');
+        oMetaDesc.setAttribute('property', 'og:description');
+        oMetaDesc.setAttribute('content', description);
+        document.getElementsByTagName('head')[0].appendChild(oMetaDesc);
+        console.log(data);
+      })
+      .catch((ex) => {
+        console.log('fetch failed', ex);
+      });
+  }
 	componentWillMount (){
-		fetch('http://www.iyuanzi.net/strategies/'+ this.props.params.id  + '?version=v2')
-			.then((response) => response.json())
-			.then((data) => {
-				this.setState({ strategy: data });
-				var title = data.title || '元子育儿';
-				var image = data.cover || 'http://share.iyuanzi.net/favicon.ico';
-				var description = data.subTitle || title;
-				const oMeta = document.createElement('meta');
-				oMeta.setAttribute('property', 'og:title');
-				oMeta.setAttribute('content', title);
-				document.getElementsByTagName('head')[0].appendChild(oMeta);
-				const oMetaImage = document.createElement('meta');
-				oMetaImage.setAttribute('property', 'og:image');
-				oMetaImage.setAttribute('content', image);
-				document.getElementsByTagName('head')[0].appendChild(oMetaImage);
-				const oMetaDesc = document.createElement('meta');
-				oMetaDesc.setAttribute('property', 'og:description');
-				oMetaDesc.setAttribute('content', description);
-				document.getElementsByTagName('head')[0].appendChild(oMetaDesc);
-				console.log(data);
-			})
-			.catch((ex) => {
-				console.log('fetch failed', ex);
-			});
+
 	};
 
 	render() {
