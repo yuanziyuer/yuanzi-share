@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import fetch from 'isomorphic-fetch';
 import moment from 'moment';
 import './style/topic.css';
+import $ from 'jquery'
 class Topic extends Component {
 	constructor(props) {
 		super(props);
@@ -22,29 +23,24 @@ class Topic extends Component {
 			} };
 	}
   componentDidMount() {
-    fetch('http://www.iyuanzi.net/topics/'+ this.props.params.id + '?version=v2')
-      .then((response) => response.json())
-      .then((data) => {
-        this.setState({ topic: data });
-        var title = data.title || '元子育儿';
-        var image = data.cover || 'http://share.iyuanzi.net/favicon.ico';
-        var description = title;
-        const oMeta = document.createElement('meta');
-        oMeta.setAttribute('property', 'og:title');
-        oMeta.setAttribute('content', title);
-        document.getElementsByTagName('head')[0].appendChild(oMeta);
-        const oMetaimage = document.createElement('meta');
-        oMetaimage.setAttribute('property', 'og:image');
-        oMetaimage.setAttribute('content', image);
-        document.getElementsByTagName('head')[0].appendChild(oMetaimage);
-        const oMetadesc = document.createElement('meta');
-        oMetadesc.setAttribute('property', 'og:description');
-        oMetadesc.setAttribute('content', description);
-        document.getElementsByTagName('head')[0].appendChild(oMetadesc);
-      })
-      .catch((ex) => {
-        console.log('fetch failed', ex);
-      });
+    $.get('http://www.iyuanzi.net/topics/'+ this.props.params.id + '?version=v2', function(result) {
+      this.setState({ topic: result });
+      var title = result.title || '元子育儿';
+      var image = result.cover || 'http://share.iyuanzi.net/favicon.ico';
+      var description = title;
+      const oMeta = document.createElement('meta');
+      oMeta.setAttribute('property', 'og:title');
+      oMeta.setAttribute('content', title);
+      document.getElementsByTagName('head')[0].appendChild(oMeta);
+      const oMetaimage = document.createElement('meta');
+      oMetaimage.setAttribute('property', 'og:image');
+      oMetaimage.setAttribute('content', image);
+      document.getElementsByTagName('head')[0].appendChild(oMetaimage);
+      const oMetadesc = document.createElement('meta');
+      oMetadesc.setAttribute('property', 'og:description');
+      oMetadesc.setAttribute('content', description);
+      document.getElementsByTagName('head')[0].appendChild(oMetadesc);
+    }.bind(this));
   }
 	componentWillMount (){
 		//var id = document.URL.split("/").slice(-1)[0];
@@ -68,7 +64,7 @@ class Topics extends Component {
 			<div className="topics"><img className="coverImg" src={this.props.topic.cover}/>
 				<div className="topicTitle">{this.props.topic.title}</div>
 				<div className="authorWrap"><span> 来自: </span><span className="author">{this.props.topic.owner.nickname}</span></div>
-				<div className="descrption">{this.props.topic.content}</div>
+				<div className="descrption">{this.props.topic.subTitle}</div>
 				<StrategiesCollections strategies={this.props.topic.strategies}/>
 			</div>
 		);
