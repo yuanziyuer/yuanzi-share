@@ -13,7 +13,7 @@
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-router": "^1.0.0",
-    "react-slick": "^0.9.3",
+    "react-slick": "^0.10.0",
     "webpack": "^1.12.6"
   },
   "scripts": {
