@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import fetch from 'isomorphic-fetch';
+import fetch_ from 'isomorphic-fetch';
+const fetch = fetch_.bind(this);
+
 import Slider from 'react-slick';
-import moment from 'moment';
 import $ from 'jquery';
-moment().format();
-moment.locale('zh-cn');
 import './style/content.css';
+import CommentList from './comments';
+import Empty from './empty';
 class StrategyComponent extends Component {
 	constructor(props) {
 		super(props);
@@ -25,37 +26,45 @@ class StrategyComponent extends Component {
 		};
 	}
   componentDidMount() {
-    $.get('http://www.iyuanzi.net/strategies/'+ this.props.params.id  + '?version=v2', function(result) {
-      this.setState({ strategy: result });
-      var title = result.title || '元子育儿';
-      var image = result.cover || 'http://share.iyuanzi.net/favicon.ico';
-      var description = result.subTitle || title;
-      const oMeta = document.createElement('meta');
-      oMeta.setAttribute('property', 'og:title');
-      oMeta.setAttribute('content', title);
-      document.getElementsByTagName('head')[0].appendChild(oMeta);
-      const oMetaImage = document.createElement('meta');
-      oMetaImage.setAttribute('property', 'og:image');
-      oMetaImage.setAttribute('content', image);
-      document.getElementsByTagName('head')[0].appendChild(oMetaImage);
-      const oMetaDesc = document.createElement('meta');
-      oMetaDesc.setAttribute('property', 'og:description');
-      oMetaDesc.setAttribute('content', description);
-      document.getElementsByTagName('head')[0].appendChild(oMetaDesc);
-    }.bind(this));
+    fetch('http://www.iyuanzi.net/strategies/'+ this.props.params.id  + '?version=v2')
+    .then((result) =>(result.json()))
+    .then((json) => {
+      this.setState({ strategy: json });
+    }).catch((ex) => {
+      console.log('a');
+      this.setState({ strategy: null });
+    });
+
+  //  $.get('http://www.iyuanzi.net/strategies/'+ this.props.params.id  + '?version=v2', function(result) {
+  //    console.log(result)
+  //
+  //    //var title = result.title || '元子育儿';
+  //    //var image = result.cover || 'http://share.iyuanzi.net/favicon.ico';
+  //    //var description = result.subTitle || title;
+  //    //const oMeta = document.createElement('meta');
+  //    //oMeta.setAttribute('property', 'og:title');
+  //    //oMeta.setAttribute('content', title);
+  //    //document.getElementsByTagName('head')[0].appendChild(oMeta);
+  //    //const oMetaImage = document.createElement('meta');
+  //    //oMetaImage.setAttribute('property', 'og:image');
+  //    //oMetaImage.setAttribute('content', image);
+  //    //document.getElementsByTagName('head')[0].appendChild(oMetaImage);
+  //    //const oMetaDesc = document.createElement('meta');
+  //    //oMetaDesc.setAttribute('property', 'og:description');
+  //    //oMetaDesc.setAttribute('content', description);
+  //    //document.getElementsByTagName('head')[0].appendChild(oMetaDesc);
+  //  }.bind(this));
   }
 	componentWillMount (){
 	};
 
 	render() {
-		return (
-			<div className="content">
-				{
-					<Strategies strategy={ this.state.strategy }/>
-				}
-			</div>
-		);
-	};
+    if(this.state.strategy) {
+      return <Strategies strategy={ this.state.strategy }/>
+    }else {
+      return <Empty/>;
+    }
+  }
 };
 
 class Strategies extends Component {
@@ -66,7 +75,7 @@ class Strategies extends Component {
 				className="author">{ this.props.strategy.owner.nickname }</span></div> : null
 			}
 			{
-				this.props.strategy.tryCount ?   <div className="usedCount">{ this.props.strategy.tryCount +'人参与' + ' 综合评分'+this.props.strategy.score +'分  ' + this.props.strategy.score +'人收藏' }</div> : <div className="usedCount"/>
+				this.props.strategy.tryCount ? <div className="usedCount">{ this.props.strategy.tryCount +'人参与 ' + ' 综合评分'+this.props.strategy.score +'分  ' + this.props.strategy.score +'人收藏' }</div> : <div className="usedCount"/>
 			}
 			<div className="audioSection">
 				{
@@ -75,11 +84,15 @@ class Strategies extends Component {
 				}
 			</div>
 			<div  className="text" id="text" dangerouslySetInnerHTML={{ __html: this.props.strategy.description }}></div>
-			<div className="photoWorks">
-				{
-					(<NonInfinite photos={ this.props.strategy.photos }/>)
-				}
-			</div>
+      {this.props.strategy.photos.length>0?
+        (
+          <div className="photoWorks">
+            {
+              <NonInfinite photos={ this.props.strategy.photos }/>
+            }
+            </div>
+        ):null
+      }
 			<div className="commentsWrap">
 				{
 					(<CommentList comments={ this.props.strategy.comments }/>)
@@ -112,7 +125,7 @@ class NonInfinite extends Component {
 						<Slider {...settings}>
 							{
 								this.props.photos.map(function (item) {
-									return (<PhotoWorkItem key={item.photoId} photo={item}></PhotoWorkItem>);
+									return (<PhotoWorkItem key={item.photoId} photo={item} />);
 								})
 							}
 						</Slider>
@@ -136,41 +149,7 @@ class PhotoWorkItem extends Component {
 	};
 };
 
-class CommentList extends Component {
-	render () {
-		return (<div>
-			{
-				this.props.comments.length ?
-					<div>
-						<div className="sectionTitle">
-							<span className="sectionName">评论 </span>
-							<span>({ this.props.comments.length })</span>
-						</div>
-						<ul className="commentList"> {
-							this.props.comments.map(function(item) {
-								return (<CommentItem {...item} key={item.commentId}></CommentItem>);
-							})
-						}
-						</ul>
-					</div>
-					: <div></div>
-			}
-		</div>);
-	};
-};
 
-class CommentItem extends Component {
-	render () {
-		return (<li className="commentItem">
-			<div className="commentItemWrap">
-				<div className="avatarWrap"><img src={ this.props.commentUser.avatar } className="avatarImg"/></div>
-				<div className="nicknameWrap"><span className="nickname">{ this.props.commentUser.nickname }</span></div>
-				<span className="time"> { moment(this.props.createdAt).fromNow() }</span>
-				<div className="commentText">{ this.props.content }</div>
-			</div>
-		</li>);
-	};
-};
 
 export default StrategyComponent;
 

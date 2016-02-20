@@ -8,11 +8,7 @@ var baseConfig = {
 		loaders: [
 			{ test: /\.js$/, exclude: /node_modules/, loader: 'babel' },
 			{ test: /\.css$/,loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader')},
-			{
-				test: /\.png$/,
-				loader: "url-loader",
-				query: { mimetype: "image/png" }
-			}
+      { test: /\.(png|jpg)$/, loader: 'url-loader' }
 		]
 	},
 
