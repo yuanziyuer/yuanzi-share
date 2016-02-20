@@ -42,10 +42,6 @@ class Topic extends Component {
       document.getElementsByTagName('head')[0].appendChild(oMetadesc);
     }.bind(this));
   }
-	componentWillMount (){
-		//var id = document.URL.split("/").slice(-1)[0];
-
-	}
 
 	render() {
 		return (
@@ -84,7 +80,7 @@ class StrategiesCollections extends  Component {
 						<ul className="strategyiesCollection">
 							{
 								this.props.strategies.map(function(item) {
-									return (<StrategyItem key={item.strategyId} {...item}></StrategyItem>);
+									return (<StrategyItem key={item.strategyId} {...item}/>);
 								})
 							}
 						</ul>
