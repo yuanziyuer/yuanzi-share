@@ -37,7 +37,7 @@
     "eslint-plugin-react": "^4.0.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
-    "image-webpack-loader": "^1.6.3",
+    "image-webpack-loader": "^1.7.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.14",
